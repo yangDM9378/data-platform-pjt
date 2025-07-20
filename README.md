@@ -24,7 +24,20 @@ InfluxDB의 데이터를 가져와 UI로 시각화 가능하도록 구현
 ```
 dataplatform-pjt/
 ├── backend/ # Flask API 서버
+│   ├── init_db.py            # SQLite DB 초기화 스크립트
+│   ├── database/             # DB 관련 파일 모음
+│   │   ├── config.db         # SQLite DB 파일 (자동 생성됨)
+│   │   └── schema.sql        # DB 테이블 정의 파일
+│   └── requirements.txt      # 백엔드 패키지 목록
 ├── frontend/ # React + Vite 프론트엔드
+│   ├── public/
+│   ├── src/
+│   │   ├── pages/            # Login, Main 등 페이지
+│   │   ├── components/       # 공통 컴포넌트
+│   │   ├── api/axios.ts      # Axios 쿠키 통신 설정
+│   │   └── main.tsx, App.tsx
+│   ├── index.html
+│   └── package.json
 ├── .gitignore
 └── README.md
 ```

@@ -5,4 +5,8 @@ CREATE TABLE users (
     username TEXT NOT NULL UNIQUE,
     password TEXT NOT NULL,
     permission TEXT NOT NULL
-)
+);
+
+-- 관리자 계정
+INSERT INTO users (username, password, permission)
+VALUES ('admin', 'admin', 'admin');

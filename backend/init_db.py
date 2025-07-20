@@ -2,7 +2,7 @@ import sqlite3
 
 def init_db():
     conn = sqlite3.connect('database/config.db')
-    with open('database/schema.sql', 'r') as f:
+    with open('database/schema.sql', 'r', encoding='utf-8') as f:  # 인코딩 명시!
         conn.executescript(f.read())
     conn.commit()
     conn.close()
