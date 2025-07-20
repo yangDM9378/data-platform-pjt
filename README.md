@@ -33,7 +33,7 @@ dataplatform-pjt/
 
 ### 🧩 프론트엔드
 
-- [v] React + Vite 초기화
+- [x] React + Vite 초기화
 - [ ] Login 페이지 구성
 - [ ] 로그인 페이지 라우팅 구현
 - [ ] Main 페이지 구성
@@ -49,6 +49,6 @@ dataplatform-pjt/
 
 ### 📦 기타
 
-- [v] GitHub 초기화 및 `.gitignore` 구성
-- [v] README 초안 작성
+- [x] GitHub 초기화 및 `.gitignore` 구성
+- [x] README 초안 작성
 - [ ] Docker 실행 환경 구성
