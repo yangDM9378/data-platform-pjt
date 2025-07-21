@@ -25,6 +25,7 @@ InfluxDB의 데이터를 가져와 UI로 시각화 가능하도록 구현
 dataplatform-pjt/
 ├── backend/ # Flask API 서버
 │   ├── init_db.py            # SQLite DB 초기화 스크립트
+|   ├── AuthAPI.py            # 계정 관련 API (port-5000)
 │   ├── database/             # DB 관련 파일 모음
 │   │   ├── config.db         # SQLite DB 파일 (자동 생성됨)
 │   │   └── schema.sql        # DB 테이블 정의 파일
@@ -54,9 +55,9 @@ dataplatform-pjt/
 
 ### 🧠 백엔드
 
-- [ ] Flask + SQLite 연동
-- [ ] 쿠키에 토큰 저장
-- [ ] DB 초기화 스크립트 작성
+- [x] Flask + SQLite 연동
+- [x] 쿠키에 토큰 저장
+- [x] DB 초기화 스크립트 작성
 - [ ] 패널 별 Influxdb V1 설정 저장 API 구현
 - [ ] InfluxDB 쿼리 기능 구현
 
