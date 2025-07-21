@@ -41,15 +41,15 @@ def login():
     resp.set_cookie('token', token, httponly=True,secure=True, samesite='Lax')
     return resp
 
-@app.route('/me', method=['GET'])
+@app.route('/me', methods = ['GET'])
 def get_current_user():
     token = request.cookies.get('token')
     if not token:
         return jsonify({'message': '로그인이 필요합니다.'}), 401
     
     try:
-        data = jwt.decode(token, app.config['SECURET_KEY'], algorithms=['HS256'])
-        return jsonify({'user': data['user'], 'permisssion': data['permission']})
+        data = jwt.decode(token, app.config['SECRET_KEY'], algorithms=['HS256'])
+        return jsonify({'user': data['user'], 'permission': data['permission']})
     except jwt.ExpiredSignatureError:
         return jsonify({'message': '토큰이 만료되었습니다.'}), 401
     except jwt.InvalidTokenError:
