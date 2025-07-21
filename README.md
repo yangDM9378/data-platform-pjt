@@ -48,9 +48,12 @@ dataplatform-pjt/
 ### 🧩 프론트엔드
 
 - [x] React + Vite 초기화
-- [ ] Login 페이지 구성
-- [ ] 로그인 페이지 라우팅 구현
+- [x] Login 페이지 구성
+- [ ] Login 페이지 Style 적용
+- [x] Login 페이지 라우팅 구현
+- [ ] User 전역 상태 관리 적용 (/me)
 - [ ] Main 페이지 구성
+- [ ] Main 페이지 Style 적용
 - [ ] InfluxDB 설정 입력 기능 추가
 
 ### 🧠 백엔드
