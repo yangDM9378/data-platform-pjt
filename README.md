@@ -69,7 +69,7 @@ dataplatform-pjt/
 - [x] React + Vite 초기 프로젝트 구성
 - [x] 로그인 페이지 개발 및 스타일 적용
 - [x] 로그인 라우팅 설정
-- [ ] 사용자 전역 상태 관리 적용 (`/me` API 기반)
+- [ ] 사용자 전역 상태 관리 적용
 - [ ] 메인 페이지 레이아웃 구성
 - [ ] 메인 페이지 스타일링
 - [ ] InfluxDB 설정 입력 UI 및 저장 기능
@@ -78,8 +78,12 @@ dataplatform-pjt/
 ### 🧠 백엔드
 
 - [x] Flask + SQLite 연동
-- [x] JWT를 쿠키에 저장하여 인증 구현
 - [x] DB 초기화 스크립트 작성
+- [x] JWT를 쿠키에 저장하여 인증 구현
+- [x] 로그인 API 구현 (/login)
+- [x] 로그인 상태 확인 API 구현 (/me)
+- [ ] 회원가입 API 구현 (/register)
+- [ ] 로그아웃 API 구현 (/logout)
 - [ ] 패널별 InfluxDB v1 설정 저장 API
 - [ ] InfluxDB 쿼리 처리 API
 
