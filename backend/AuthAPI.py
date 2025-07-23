@@ -38,7 +38,7 @@ def login():
     }, app.config['SECRET_KEY'], algorithm="HS256")
 
     resp = make_response(jsonify({'message' : '로그인 성공'}))
-    resp.set_cookie('token', token, httponly=True,secure=True, samesite='Lax')
+    resp.set_cookie('token', token, httponly=True, samesite='Lax')
     return resp
 
 @app.route('/me', methods = ['GET'])
