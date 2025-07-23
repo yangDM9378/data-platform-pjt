@@ -1,23 +1,37 @@
 # 📊 dataplatform-pjt
 
-React + Flask 기반 모니터링 데이터 플랫폼 프로젝트입니다.  
-InfluxDB의 데이터를 가져와 UI로 시각화 가능하도록 구현
-패널 별로 Influxdb V1 세팅이 가능하도록 입력하고 개별 데이터 조회가 가능하도록 구현
+React + Flask 기반의 모니터링 데이터 플랫폼 프로젝트입니다.  
+InfluxDB에서 시계열 데이터를 조회하여 UI로 시각화하고,  
+패널별로 InfluxDB v1 설정을 입력 및 저장할 수 있도록 구성하였습니다.
 
 ---
 
 ## 🚀 주요 기능
 
-- 🔐 **JWT 쿠키 기반 로그인** (React + Flask)
+- 🔐 JWT 쿠키 기반 로그인 인증 (React + Flask)
+- 🧩 프론트/백엔드 구조 분리, Axios 기반 통신
 
 ---
 
 ## ⚙️ 개발환경
 
 - **Frontend**: React 19 + Vite + TypeScript
-- **Backend**: Python 3.9 + Flask + SQLite
+
+  - Emotion (CSS-in-JS)
+  - React Router v7
+  - Axios 인스턴스 (`withCredentials: true`) 기반 쿠키 인증 처리
+  - 구조화된 컴포넌트 분리 방식
+  - 로그인 상태 유지 (JWT via Cookie)
+
+- **Backend**: Python 3.9 + Flask
+  - Flask-CORS
+  - JWT 토큰을 HttpOnly 쿠키로 응답 (`make_response`, `set_cookie`)
+  - 사용자 인증 해시: `werkzeug.security`
+  - SQLite3 내장 DB 연동
+  - DB 초기화 스크립트 (`schema.sql` + `init_db.py`)
 - **DB**:
-  - SQLite (유저 정보)
+  - **SQLite**: 사용자 정보 저장 (username, password, permission 등)
+  - **InfluxDB v1**: 시계열 데이터 연동
 
 ## 🏗️ 프로젝트 구조
 
@@ -45,27 +59,46 @@ dataplatform-pjt/
 
 ## ✅ 진행 상황
 
+### 🛢️ DB
+
+- [ ] Influxdb V1 로컬 세팅
+- [ ] InfluxDB 더미 데이터 삽입
+
 ### 🧩 프론트엔드
 
-- [x] React + Vite 초기화
-- [x] Login 페이지 구성
-- [ ] Login 페이지 Style 적용
-- [x] Login 페이지 라우팅 구현
-- [ ] User 전역 상태 관리 적용 (/me)
-- [ ] Main 페이지 구성
-- [ ] Main 페이지 Style 적용
-- [ ] InfluxDB 설정 입력 기능 추가
+- [x] React + Vite 초기 프로젝트 구성
+- [x] 로그인 페이지 개발 및 스타일 적용
+- [x] 로그인 라우팅 설정
+- [ ] 사용자 전역 상태 관리 적용 (`/me` API 기반)
+- [ ] 메인 페이지 레이아웃 구성
+- [ ] 메인 페이지 스타일링
+- [ ] InfluxDB 설정 입력 UI 및 저장 기능
+- [ ] NotFound 페이지 라우팅 처리
 
 ### 🧠 백엔드
 
 - [x] Flask + SQLite 연동
-- [x] 쿠키에 토큰 저장
+- [x] JWT를 쿠키에 저장하여 인증 구현
 - [x] DB 초기화 스크립트 작성
-- [ ] 패널 별 Influxdb V1 설정 저장 API 구현
-- [ ] InfluxDB 쿼리 기능 구현
+- [ ] 패널별 InfluxDB v1 설정 저장 API
+- [ ] InfluxDB 쿼리 처리 API
 
 ### 📦 기타
 
 - [x] GitHub 초기화 및 `.gitignore` 구성
 - [x] README 초안 작성
 - [ ] Docker 실행 환경 구성
+
+## 🧪 실행 방법 (예정)
+
+```bash
+# 백엔드 서버 (선택 - venv 가상서버)
+cd backend
+python init_db.py
+python AuthAPI.py
+
+# 프론트엔드
+cd frontend
+npm install
+npm run dev
+```
