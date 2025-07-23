@@ -1,8 +1,16 @@
+# Node
 node_modules/
-.env
+frontend/dist/
+
+# Python
 __pycache__/
 *.pyc
-*.db
-dist/
-frontend/dist/
 venv/
+
+# SQLite
+*.db
+backend/database/config.db
+
+# IDE
+.vscode/
+.idea/
