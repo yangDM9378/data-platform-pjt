@@ -61,6 +61,10 @@ dataplatform-pjt/
 
 ### 🛢️ DB
 
+- [x] SQLite users Table 및 초기화 스크립트 작성
+- [x] SQLite folders Table 및 초기화 스크립트 작성
+- [x] SQLite dashboards Table 및 초기화 스크립트 작성
+- [x] SQLite datasources Table 및 초기화 스크립트 작성
 - [ ] Influxdb V1 로컬 세팅
 - [ ] InfluxDB 더미 데이터 삽입
 
@@ -78,7 +82,6 @@ dataplatform-pjt/
 ### 🧠 백엔드
 
 - [x] Flask + SQLite 연동
-- [x] DB 초기화 스크립트 작성
 - [x] JWT를 쿠키에 저장하여 인증 구현
 - [x] 로그인 API 구현 (/login)
 - [x] 로그인 상태 확인 API 구현 (/me)
