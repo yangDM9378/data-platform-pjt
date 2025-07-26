@@ -22,6 +22,7 @@ def get_structure():
             f_parent.title AS parent_title,
             f_folder.title AS folder_title,
             f_folder.uid AS folder_uid,
+            f_folder.sub_title AS folder_sub_title,
             d.title AS dashboard_title,
             d.uid AS dashboard_uid,
             ds.title AS datasource_title,
@@ -55,6 +56,7 @@ def get_structure():
             parent = row['parent_title']
             folder = row['folder_title']
             folder_uid = row['folder_uid']
+            folder_sub_title = row['folder_sub_title']
             dash_title = row['dashboard_title']
             dash_uid = row['dashboard_uid']
             ds = {
@@ -65,6 +67,7 @@ def get_structure():
 
             folder_data = result[parent][folder]
             folder_data['folder_uid'] = folder_uid
+            folder_data['folder_sub_title'] = folder_sub_title
             dash_data = folder_data['dashboards'][dash_title]
             dash_data['dashboard_uid'] = dash_uid
             dash_data['title'] = dash_title
@@ -78,6 +81,7 @@ def get_structure():
                     {
                         'title': folder_title,
                         'folder_uid': folder_data['folder_uid'],
+                        'folder_sub_title': folder_data['folder_sub_title'],
                         'dashboards': list(folder_data['dashboards'].values())
                     } for folder_title, folder_data in folders.items()
                 ]
