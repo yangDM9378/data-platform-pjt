@@ -72,14 +72,14 @@ def init_folder_dashboard_datasource_create():
         }
 
         datasources = [
-            (ds_influx_uid, "InfluxDB_v1", json.dumps(influx_json)),
-            (ds_api_uid, "Python_API", json.dumps(python_api_json))
+            (ds_influx_uid, "influxDBV1", "InfluxDB_v1", json.dumps(influx_json)),
+            (ds_api_uid, "pythonApi","Python_API", json.dumps(python_api_json))
         ]
 
-        for uid, ds_type, ds_json in datasources:
+        for uid, title, ds_type, ds_json in datasources:
             conn.execute(
-                'INSERT OR IGNORE INTO datasources (uid, type, ds_json) VALUES (?, ?, ?)',
-                (uid, ds_type, ds_json)
+                'INSERT OR IGNORE INTO datasources (uid, title, type, ds_json) VALUES (?, ?, ?, ?)',
+                (uid, title, ds_type, ds_json)
             )
 
         for title, folder_uid, _ in eq_folders:

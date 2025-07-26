@@ -31,6 +31,7 @@ CREATE TABLE dashboards (
 
 CREATE TABLE datasources (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT NOT NULL UNIQUE,
     uid TEXT NOT NULL UNIQUE,
     type TEXT NOT NULL,
     ds_json TEXT
