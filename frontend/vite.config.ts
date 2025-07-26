@@ -12,6 +12,12 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: path => path.replace(/^\/auth/, '')
       },
+      // folder structure 관련
+      '/structure': {
+        target: 'http://localhost:5001',
+        changeOrigin: true,
+        rewrite: path => path.replace(/^\/structure/, '')
+      },
     }
   }
 })
