@@ -10,7 +10,7 @@ CORS(app, supports_credentials=True)
 
 DB_PATH = 'database/config.db'
 
-@app.route('/structure', methods = ['GET'])
+@app.route('/tree', methods = ['GET'])
 def get_structure():
     conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row
