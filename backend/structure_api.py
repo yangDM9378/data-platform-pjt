@@ -10,7 +10,7 @@ CORS(app, supports_credentials=True)
 
 DB_PATH = 'database/config.db'
 
-@app.route('/tree', methods = ['GET'])
+@app.route('/tree', methods=['GET'])
 def get_structure():
     try:
         conn = sqlite3.connect(DB_PATH)
@@ -33,7 +33,7 @@ def get_structure():
         JOIN dashboard_datasources dd ON dd.dashboard_uid = d.uid
         JOIN datasources ds ON ds.uid = dd.datasource_uid
         WHERE f_parent.parent_uid IS NULL
-        ORDER BY f_parent.title, f_folder.title
+        ORDER BY f_parent.title, f_folder.title, d.title
         """
         
         cur.execute(query)
@@ -45,37 +45,49 @@ def get_structure():
 
         result = defaultdict(lambda: defaultdict(lambda: {
             'folder_uid': None,
-            'dashboard': None,
-            'dashboard_uid' : None,
-            'datasources': []
+            'dashboards': defaultdict(lambda: {
+                'dashboard_uid': None,
+                'datasources': []
+            })
         }))
+
         for row in rows:
-            parent_title = row['parent_title']
-            folder_title = row['folder_title']
-            
-            result[parent_title][folder_title]['folder_uid'] = row['folder_uid']
-            result[parent_title][folder_title]['dashboard'] = row['dashboard_title']
-            result[parent_title][folder_title]['dashboard_uid'] = row['dashboard_uid']
-            result[parent_title][folder_title]['datasources'].append({
+            parent = row['parent_title']
+            folder = row['folder_title']
+            folder_uid = row['folder_uid']
+            dash_title = row['dashboard_title']
+            dash_uid = row['dashboard_uid']
+            ds = {
                 'title': row['datasource_title'],
                 'type': row['datasource_type'],
                 'config': json.loads(row['ds_json'])
-            })
+            }
 
-        parent_list = []
-        for parent, folders in result.items():
-            parent_list.append({
-                'parent': parent,
+            folder_data = result[parent][folder]
+            folder_data['folder_uid'] = folder_uid
+            dash_data = folder_data['dashboards'][dash_title]
+            dash_data['dashboard_uid'] = dash_uid
+            dash_data['title'] = dash_title
+            dash_data['datasources'].append(ds)
+
+        final = []
+        for parent_title, folders in result.items():
+            final.append({
+                'parent': parent_title,
                 'folders': [
                     {
-                        'title': folder,
-                        **data
-                    } for folder, data in folders.items()
+                        'title': folder_title,
+                        'folder_uid': folder_data['folder_uid'],
+                        'dashboards': list(folder_data['dashboards'].values())
+                    } for folder_title, folder_data in folders.items()
                 ]
             })
-        return jsonify(parent_list)
-    
+
+        return jsonify(final)
+
     except Exception as e:
         return jsonify({'message': f'서버 오류: {str(e)}'}), 500
+
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5001, debug=True)
