@@ -74,8 +74,8 @@ dataplatform-pjt/
 - [x] 로그인 페이지 개발 및 스타일 적용
 - [x] 로그인 라우팅 설정
 - [ ] 사용자 전역 상태 관리 적용
-- [ ] 메인 페이지 레이아웃 구성
-- [ ] 메인 페이지 스타일링
+- [x] 메인 페이지 레이아웃 구성
+- [x] 메인 페이지 스타일링
 - [ ] InfluxDB 설정 입력 UI 및 저장 기능
 - [ ] NotFound 페이지 라우팅 처리
 
@@ -87,8 +87,10 @@ dataplatform-pjt/
 - [x] 로그인 상태 확인 API 구현 (/me)
 - [ ] 회원가입 API 구현 (/register)
 - [ ] 로그아웃 API 구현 (/logout)
+- [x] folder-dashboard-datasource 조회 API 구현 (/tree)
+- [x] influxDB folder별 alarm & run status API 구현 (/batch)
 - [ ] 패널별 InfluxDB v1 설정 저장 API
-- [ ] InfluxDB 쿼리 처리 API
+- [x] InfluxDB v1 쿼리 처리 Util 구현
 
 ### 📦 기타
 
