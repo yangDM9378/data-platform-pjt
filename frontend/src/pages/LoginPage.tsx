@@ -79,7 +79,6 @@ const slideUp = keyframes`
   to { opacity: 1; transform: translateY(0); }
 `
 const containerStyle = css`
-  background: linear-gradient(135deg, #1e293b, #1f2f46, #1e293b);
   /* background: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.02), transparent 40%), #1e293b; */
   /* background: url('/assets/bg.jpg') no-repeat center center;
   background-size: cover; */
