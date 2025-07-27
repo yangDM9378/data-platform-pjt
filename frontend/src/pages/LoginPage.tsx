@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { css, keyframes } from '@emotion/react'
 import type { LoginPayload } from '../types/auth'
 
+
 export default function LoginPage() {
   const [payload, setPayload] = useState<LoginPayload>({ username: '', password: '' })
   const [error, setError] = useState<string | null>(null)

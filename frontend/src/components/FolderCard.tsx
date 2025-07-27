@@ -1,20 +1,23 @@
-import type { FolderItem } from "../types/structure"
+import type { FolderItem, DashboardStatusInfo } from "../types/structure"
+import StatusInfo from "./StatusInfo"
 
 type Props = {
-  folder:FolderItem
+  folder: FolderItem
+  statusInfo?: DashboardStatusInfo
 }
 
-export default function FolderCard({ folder }: Props) {
+export default function FolderCard({ folder, statusInfo }: Props) {
+  const displayInfo = statusInfo || {
+    status: 'LOADING',
+    runtime: '-'
+  }
+
   return (
     <div>
       <h3>{folder.title}</h3>
-      {folder.dashboards.map(dash => (
-        <div key={dash.dashboard_uid}>
-          <ul>
-          </ul>
-        </div>
-      ))}
-
+      <div>{folder.folder_sub_title}</div>
+      <StatusInfo status={displayInfo.status} />
+      <div>RUNTIME: {displayInfo.runtime}</div>
     </div>
   )
 }

@@ -6,6 +6,7 @@ export interface StructureItem {
 export interface FolderItem {
   title: string;
   folder_uid: string;
+  folder_sub_title: string | null;
   dashboards: DashboardItem[];
 }
 
@@ -43,4 +44,21 @@ export interface InfluxDBConfig {
 
 export interface PythonApiConfig {
   url: string
+}
+
+export type DashboardStatus = 'RUNNING' | 'ALARM' | 'STABLE' | 'LOADING'
+
+export interface DashboardStatusInfo {
+  status: DashboardStatus
+  runtime: string
+}
+
+export type DashboardStatusMap = {
+  [folderTitle: string]: DashboardStatusInfo
+}
+
+export type GlobalStats = {
+  total: number
+  running: number
+  alarm: number
 }
