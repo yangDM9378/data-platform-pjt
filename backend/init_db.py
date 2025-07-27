@@ -50,12 +50,12 @@ def init_folder_dashboard_datasource_create():
         for i in range(1, 8):
             eq_uid = "folder_" + str(uuid.uuid4())[:8]
             parent_uid = fab_1_uid if i <= 4 else fab_2_uid
-            eq_folders.append((f"EQ {i}", eq_uid, parent_uid))
+            eq_folders.append((f"EQ-{i}", eq_uid, parent_uid))
 
         for title, uid, parent_uid in eq_folders:
             conn.execute(
-                'INSERT OR IGNORE INTO folders (title, uid, parent_uid) VALUES (?, ?, ?)',
-                (title, uid, parent_uid)
+                'INSERT OR IGNORE INTO folders (title, uid, parent_uid, sub_title) VALUES (?, ?, ?, ?)',
+                (title, uid, parent_uid, 'subtitle')
             )
 
         ds_influx_uid = "ds_" + str(uuid.uuid4())[:8]
@@ -64,7 +64,8 @@ def init_folder_dashboard_datasource_create():
         influx_json = {
             "url": "http://localhost:8086",
             "username": "admin",
-            "password": "admin"
+            "password": "admin",
+            "dbname": "test"
         }
 
         python_api_json = {

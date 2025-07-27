@@ -1,6 +1,9 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from flask_cors import CORS
 from collections import defaultdict
+from datetime import datetime, timezone
+
+from common import influxdb_v1_client
 import sqlite3
 import json
 
@@ -93,5 +96,54 @@ def get_structure():
         return jsonify({'message': f'서버 오류: {str(e)}'}), 500
 
 
+@app.route('/batch', methods=['POST'])
+def batch_status():
+    data = request.get_json()
+    result_map = {}
+    for item in data:
+        meas = item['measurement']
+        try:
+            client = influxdb_v1_client(
+                url=item['url'],
+                dbname=item['dbname'],
+                username=item['username'],
+                password=item['password']
+            )
+            query = f'SELECT * FROM "{meas}" ORDER BY time DESC LIMIT 1'
+            result = client.query(query)
+            points = list(result.get_points())
+            point = points[0] if points else {}
+            if not point:
+                result_map[meas] = {}
+                continue
+            alarm = int(point.get("alarm_status", 0))
+            run = int(point.get("run_status", 0))
+            time_str = point.get("time")
+            if alarm == 1:
+                status = "ALARM"
+                runtime = "-"
+            elif run == 1:
+                status = "RUNNING"
+                try:
+                    point_time = datetime.strptime(time_str, "%Y-%m-%dT%H:%M:%S.%fZ").replace(tzinfo=timezone.utc)
+                    now = datetime.now(timezone.utc)
+                    delta = now - point_time
+                    runtime = str(delta).split(".")[0]
+                except Exception as e:
+                    runtime = "-"
+            else:
+                status = "STABLE"
+                runtime = "-"
+
+            result_map[meas] = {
+                "status": status,
+                "runtime": runtime
+            }
+
+        except Exception as e:
+            print(f"[ERROR] {meas} : {e}")
+            result_map[meas] = {"status": "ERROR", "runtime": "-"}
+
+    return jsonify(result_map)
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5001, debug=True)
